@@ -1,0 +1,6 @@
+#Time to live for entity (integer of minutes)
+#default 21600
+ENTITY_TTL: 5
+#Interval for perform removing expiried entities (integer of minutes)
+#default 1440
+INTERVAL_TO_CLEAN_ENTITIES: 1
