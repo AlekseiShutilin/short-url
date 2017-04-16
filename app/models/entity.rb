@@ -1,6 +1,5 @@
-require 'open-uri'
+require 'rest-client'
 class Entity < ApplicationRecord
-	include HTTParty
 
 	validates :url, presence: true
 	validates :short_url,
@@ -9,18 +8,13 @@ class Entity < ApplicationRecord
 			  format: {with: /\A\p{Alpha}\p{Alpha}*\p{Alpha}\Z/, message: 'Incorret format, use only alphabetical characters'}
 
 	def check_fields
-		begin
-			response = HTTParty.get(URI.parse self.url)
-		rescue
-			return false
-		end
-
+		response = RestClient.get self.url
+		byebug
 		if response.code == 200
 			if self.short_url.blank?
 				self.generate_short_url
 			end
-
-			true
+			return true
 		end
 		false
 	end
