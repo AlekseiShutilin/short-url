@@ -1,34 +1,20 @@
 class EntitiesController < ApplicationController
 
-	def home
-		byebug
-	end
-
 	def new
 		@entity = Entity.new
 	end
 
 	def create
 		@entity = Entity.new(entity_params)
-		@errors_short_url = []
-		@errors_url = []
-		if @entity.check_fields.blank?
-			if @entity.save
-				flash[:info] = "Short url #{@entity.short_url} for #{@entity.url} has been successfully created"
-				redirect_to root_path
-			else
-				@errors_short_url << @entity.errors.full_messages
-				render 'new'
-			end
+		if @entity.save
+			redirect_to @entity
 		else
-			@errors_url << @entity.check_fields
 			render 'new'
 		end
-
 	end
 
 	def show
-
+		@entity = Entity.find_by(id: params[:id])
 	end
 
 	def redirect
@@ -36,7 +22,7 @@ class EntitiesController < ApplicationController
 		if @entity.present?
 			redirect_to @entity.url.to_s
 		else
-			redirect_to root_path
+			render file: 'public/404.html'
 		end
 	end
 

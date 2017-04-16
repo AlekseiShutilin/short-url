@@ -1,3 +1,6 @@
 .container
   .row
     .jumbotron
+      %h4.text-center
+        The short url /#{@entity.short_url} created for #{@entity.url}
+      =link_to 'HOME', root_path, {class: 'btn btn-block btn-primary'}

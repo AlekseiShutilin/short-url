@@ -1,14 +1,18 @@
 .container
   .row
     .jumbotron
+      %h3.text-center
+        Create your short url
+        %small
+          #{Entity.all.count} urls have been already created
       = form_for @entity, html: {role: 'form'} do |f|
         .form-group
           = f.label :url
           = f.text_field :url, {class: 'form-control'}
         .form-group
-          - unless @errors_url.blank?
+          - if @entity.errors[:url].present?
             %ul.errors-list
-              - @errors_url.each do |error|
+              - @entity.errors.messages[:url].each do |error|
                 %li.error
                   =error
 
@@ -17,11 +21,10 @@
           = f.text_field :short_url, {class: 'form-control'}
         .form-group
           .form-group
-            - if @errors_short_url.present?
+            - if @entity.errors.messages[:short_url].present?
               %ul.errors-list
-                - @errors_short_url.each do |error|
+                - @entity.errors.messages[:short_url].each do |error|
                   %li.error
                     =error
-
         .form-group
-          = f.submit "Submit", class: 'btn btn-default'
+          = f.submit "Submit", class: 'btn btn-block btn-primary'
