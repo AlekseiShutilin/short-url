@@ -3,3 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.new_entity {
+  .errors-list {
+    .error {
+      color: red;
+    }
+  }
+}

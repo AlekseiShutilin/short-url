@@ -6,7 +6,22 @@
           = f.label :url
           = f.text_field :url, {class: 'form-control'}
         .form-group
+          - if @errors_url.present?
+            %ul.errors-list
+              - @errors_url.each do |error|
+                %li.error
+                  =error
+
+        .form-group
           = f.label :short_url
           = f.text_field :short_url, {class: 'form-control'}
+        .form-group
+          .form-group
+            - if @errors_short_url.present?
+              %ul.errors-list
+                - @errors_short_url.each do |error|
+                  %li.error
+                    =error
+
         .form-group
           = f.submit "Submit", class: 'btn btn-default'
