@@ -1,4 +1,9 @@
 class EntitiesController < ApplicationController
+
+	def home
+		byebug
+	end
+
 	def new
 		@entity = Entity.new
 	end
@@ -7,7 +12,7 @@ class EntitiesController < ApplicationController
 		@entity = Entity.new(entity_params)
 		@errors_short_url = []
 		@errors_url = []
-		if @entity.check_fields
+		if @entity.check_fields.blank?
 			if @entity.save
 				flash[:info] = "Short url #{@entity.short_url} for #{@entity.url} has been successfully created"
 				redirect_to root_path
@@ -16,7 +21,7 @@ class EntitiesController < ApplicationController
 				render 'new'
 			end
 		else
-			@errors_url << 'Incorrect URL, the response should to has 200 or 302 code'
+			@errors_url << @entity.check_fields
 			render 'new'
 		end
 
@@ -24,6 +29,15 @@ class EntitiesController < ApplicationController
 
 	def show
 
+	end
+
+	def redirect
+		@entity = Entity.find_by(short_url: params[:short_url])
+		if @entity.present?
+			redirect_to @entity.url.to_s
+		else
+			redirect_to root_path
+		end
 	end
 
 	private

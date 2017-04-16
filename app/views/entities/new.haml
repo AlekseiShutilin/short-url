@@ -6,7 +6,7 @@
           = f.label :url
           = f.text_field :url, {class: 'form-control'}
         .form-group
-          - if @errors_url.present?
+          - unless @errors_url.blank?
             %ul.errors-list
               - @errors_url.each do |error|
                 %li.error
