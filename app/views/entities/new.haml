@@ -1,0 +1,12 @@
+.container
+  .row
+    .jumbotron
+      = form_for @entity, html: {role: 'form'} do |f|
+        .form-group
+          = f.label :url
+          = f.text_field :url, {class: 'form-control'}
+        .form-group
+          = f.label :short_url
+          = f.text_field :short_url, {class: 'form-control'}
+        .form-group
+          = f.submit "Submit", class: 'btn btn-default'
