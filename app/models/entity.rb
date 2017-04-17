@@ -28,12 +28,12 @@ class Entity < ApplicationRecord
   end
 
   def check_short_url
-    if short_url.present?
-      if RESERVED_URLS.include? short_url
+    if self.short_url.present?
+      if RESERVED_URLS.include? self.short_url
         errors.add(:short_url, 'Ouch... No. You cannot use this URL, I\'m so, so sorry about it')
-      else
-        generate_short_url
       end
+    else
+      self.generate_short_url
     end
   end
 
