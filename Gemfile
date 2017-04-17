@@ -38,6 +38,9 @@ gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'rest-client'
 gem 'whenever', :require => false
+gem 'devise'
+gem 'omniauth'
+gem 'devise_token_auth'
 
 group :production do
   gem 'pg', '~> 0.18'
