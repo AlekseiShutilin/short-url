@@ -5,7 +5,8 @@
 @import "bootstrap";
 
 .new_entity {
-  .errors-list {
+  .url-errors-list,
+  .short-url-errors-list {
     .error {
       color: red;
     }

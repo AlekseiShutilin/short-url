@@ -4,14 +4,13 @@ class Entity < ApplicationRecord
   ENTITY_TTL = (ENV['ENTITY_TTL'].present? &&
       ENV['ENTITY_TTL'].to_i.is_a?(Numeric) &&
       ENV['ENTITY_TTL'].to_i >= 1) ? ENV['ENTITY_TTL'].to_i : 21600
-
+  validate :check_url
+  validate :check_short_url
   validates :url, presence: true
   validates :short_url,
             length: {in:(4..8)},
             uniqueness: true,
             format: {with: /\A\p{Alpha}\p{Alpha}*\p{Alpha}\Z/, message: 'Incorret format, use only alphabetical characters at least 4 symbols'}
-  validate :check_short_url
-  validate :check_url
 
   before_save :add_protocol
 
@@ -32,6 +31,8 @@ class Entity < ApplicationRecord
     if short_url.present?
       if RESERVED_URLS.include? short_url
         errors.add(:short_url, 'Ouch... No. You cannot use this URL, I\'m so, so sorry about it')
+      else
+        generate_short_url
       end
     end
   end
