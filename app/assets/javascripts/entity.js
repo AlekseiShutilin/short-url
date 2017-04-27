@@ -1,4 +1,4 @@
-$(document).ready( function () {
+$(document).on('turbolinks:load', function () {
     var entityFormHandler = new EntityFormHandler();
     entityFormHandler.initialize();
 });
@@ -29,6 +29,7 @@ function EntityFormHandler() {
 
     self.renderUrlErrors = function (errors) {
         var list = $('.url-errors-list');
+        list.empty();
         errors.forEach( function (error) {
             list.append( '<li class="error">' + error + '</li>' );
         })
@@ -36,10 +37,9 @@ function EntityFormHandler() {
 
     self.renderShortUrlErrors = function (errors) {
         var list = $('.short-url-errors-list');
+        list.empty();
         errors.forEach( function (error) {
-            errors.forEach( function (error) {
-                list.append( '<li class="error">' + error + '</li>' );
-            })
+            list.append( '<li class="error">' + error + '</li>' );
         })
     };
 

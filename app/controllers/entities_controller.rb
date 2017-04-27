@@ -20,7 +20,7 @@ class EntitiesController < ApplicationController
   def redirect
     @entity = Entity.find_by(short_url: params[:short_url])
     if @entity.present?
-      redirect_to @entity.url.to_s
+      redirect_to @entity.url.to_s, status: 301
     else
       render file: 'public/404.html'
     end
